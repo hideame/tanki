@@ -3,12 +3,13 @@
     <h1>List of Services</h1>
     <table class='table table-striped table-hover'>
         <tr>
-            <th>Category</th><th>Service Content</th><th>Username</th>
+            <th>Category</th><th>Service Content</th><th>Price(Pula)</th><th>Username</th>
         </tr>
         {% for service in object_list %}
         <tr>
             <td>{{ service.category.name }}</td>
             <td><a href='{% url "skill:detail" service.pk %}'>{{ service.content }}</a></td>
+            <td>P{{ service.price }}</td>
             <td>{{ service.author }}</td>
         </tr>
         {% endfor %}
