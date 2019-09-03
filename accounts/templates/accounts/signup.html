@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}         <!-- パスを指定しない場合は、プロジェクト全体のテンプレートディレクトリを参照 -->
+{% block content %}
+    <h1>Sign up</h1>
+    <section class='common-form'>
+        <form method='post'>
+            {% csrf_token %}
+            {{ form.as_p }}             <!-- 汎用ビューで用意した項目を自動的にフォームとして表示 -->
+            <button type='submit'>Sign up</button>
+        </form>
+    </section>
+{% endblock %}

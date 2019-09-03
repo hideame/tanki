@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>{{ service.content }}</h1>
+
+    <div>
+        <p>{{ service.category.name }}</p>
+        <p>{{ service.content }}</p>
+        <p>{{ service.author }}</p>
+    </div>
+    <div>
+        <a href='{% url "skill:index" %}' class="btn btn-primary">List of Services</a>
+        <!-- ログインIDと作成者のIDが一致している場合のみ編集と削除のリンクを表示 -->
+        {% if request.user.id == object.author_id %}
+            <a href='{% url "skill:update" service.pk %}' class="btn btn-primary mx-1">Edit</a>
+            <a href='{% url "skill:delete" service.pk %}' class="btn btn-danger">Delete</a>
+        {% endif %}
+    </div>
+{% endblock %}

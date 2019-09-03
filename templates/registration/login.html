@@ -1,0 +1,28 @@
+{% extends '../layout.html' %}
+{% block content %}
+<h1>Login</h1>
+<section class='common-form'>
+    <!-- ログイン時のエラーメッセージを表示 -->
+    {% if form.errors %}
+        <p class='error-msg'>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+ 
+    <!-- アクセス権限に関するエラーメッセージを表示 -->
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p class='error-msg'>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        {% else %}
+            <p class='error-msg'>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+ 
+    <!-- ユーザ名とパスワードを入力するフォームを表示 -->
+    <form action='{% url "login" %}' method='post'>
+        {% csrf_token %}
+        <input type='hidden' name='next' value='{{ next }}'/>
+        {{ form.as_p }}
+        <button type='submit'>Login</button>
+    </form>
+</section>
+{% endblock %}

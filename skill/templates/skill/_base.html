@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}    
+    <head>
+        <meta charset='utf-8'>
+        <!-- metaタグでviewportを指定 -->
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">    <!-- bootstrapを読み込み -->
+        <title>Tanki</title>
+    </head>
+    <body>
+        <div class='pb-5 mb-4'>
+            <!-- ナビゲーションバーを設定 -->
+            <nav class='navbar navbar-expand-sm navbar-dark bg-dark fixed-top'>
+                <a class='navbar-brand' href='{% url "skill:index" %}'>Tanki</a>
+            </nav>
+        </div>
+        <div class='container'>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- bootstrapを読み込み -->
+        <script type="text/javascript" src="{% static 'js/jquery-3.4.1.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bootstrap.bundle.js' %}"></script>        
+    </body>
+</html>

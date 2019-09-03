@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}    
+    <head>
+        <meta charset='utf-8'>
+        <!-- metaタグでviewportを指定 -->
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">    <!-- bootstrapを読み込み -->
+        <title>Tanki</title>
+    </head>
+    <body>
+        <div class='pb-5 mb-4'>
+            <!-- ナビゲーションバーを設定 -->
+            <nav class='navbar navbar-expand-sm navbar-dark bg-dark fixed-top'>
+                <a class='navbar-brand' href='{% url "skill:index" %}'>Tanki</a>
+                <!-- ナビゲーションバーに、ログインとログアウトのリンクを表示 -->
+                <ul class='navbar-nav'>
+                    <!-- ログイン中なら、ユーザ名とログアウトのリンクを表示 -->
+                    {% if user.is_authenticated %}
+                        <li class='nav-time'>
+                            <span class='navbar-text'>{{ user }} - </span>
+                        </li>
+                        <li class='nav-item'>
+                            <a href='{% url "logout" %}' class='logout nav-link'>Logout</a>
+                        </li>
+                    <!-- そうでなければログインのリンクを表示 -->
+                    {% else %}
+                        <li class='nav-item'>
+                            <a href='{% url "login" %}' class='login nav-link'>Login</a>
+                        </li>
+                        <li class="nav-item">
+                                <!-- 共通テンプレートにSign upのリンクを追加 -->
+                                <a href='{% url "accounts:signup" %}' class='signup nav-link'>Sign up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class='container'>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- bootstrapを読み込み -->
+        <script type="text/javascript" src="{% static 'js/jquery-3.4.1.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bootstrap.bundle.js' %}"></script>        
+    </body>
+</html>
