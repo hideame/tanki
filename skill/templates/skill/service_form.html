@@ -1,12 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
     <!-- 新規と編集で共通のテンプレート -->
-    <h1>{{ object|yesno:'Updata,Create'}} of Service List</h1>
- 
-    <form action='' method='post'>
+    <h1>{{ object|yesno:'Update,Create'}} of Service List</h1>
+
+    <form action='' method='post' enctype='multipart/form-data'>
         {% csrf_token %}                <!-- このフォームが正式であることを証明する -->
         {{ form.as_p }}                 <!-- 全ての項目を表示 -->
-        <button type='submit' class='submit btn btn-danger'>{{ object|yesno:'Updata,Create'}}</button>
+        <button type='submit' class='submit btn btn-danger'>{{ object|yesno:'Update,Create'}}</button>
     </form>
     <div>
         <!-- JavaScriptで戻る機能を実装 -->

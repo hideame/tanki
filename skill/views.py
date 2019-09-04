@@ -16,7 +16,7 @@ class DetailView(generic.DetailView):
 class CreateView(LoginRequiredMixin, generic.edit.CreateView):  # アクセス制御を追加
     model = Service
     # 投稿者の名前以外をフォームとして指定
-    fields = ['category', 'content', 'price'] # '__all__'
+    fields = ['category', 'content', 'image', 'price'] # '__all__'
 
     # form_validメソッドで格納する値をチェック
     def form_valid(self, form):
@@ -28,7 +28,7 @@ class CreateView(LoginRequiredMixin, generic.edit.CreateView):  # アクセス�
 class UpdateView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Service
     # 投稿者の名前以外をフォームとして指定
-    fields = ['category', 'content', 'price'] # '__all__'
+    fields = ['category', 'content', 'image', 'price'] # '__all__'
 
     # dispathメソッドをオーバーライド
     def dispatch(self, request, *args, **kwargs):

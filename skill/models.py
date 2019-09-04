@@ -20,6 +20,7 @@ class Service(models.Model):       # Serviceモデルの定義
         on_delete=models.CASCADE,
     )
     price = models.IntegerField(default=10)
+    image = models.ImageField(upload_to='photo', null=True)    # 画像カラム追加
     # CategoryモデルとShopモデルの関連付け
     category = models.ForeignKey(
         Category,
@@ -27,7 +28,7 @@ class Service(models.Model):       # Serviceモデルの定義
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
- 
+
     def __str__(self):
         return self.content
 

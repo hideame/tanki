@@ -9,3 +9,10 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')), # accounts.urlsがない場合、ユーザ認証用のビューを呼び出す
     path('',  RedirectView.as_view(url='/skill/')),
 ]
+
+# 以下の定義を追加(画像アップロード用)
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

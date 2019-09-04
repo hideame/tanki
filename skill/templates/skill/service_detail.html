@@ -5,6 +5,11 @@
     <div>
         <p>{{ service.category.name }}</p>
         <p>{{ service.content }}</p>
+        {% if service.image %}
+            <p><img src="{{ service.image.url }}"></p>
+        {% else %}
+            <p>No image</p>
+        {% endif %}
         <p>P{{ service.price }}</p>
         <p>{{ service.author }}</p>
     </div>
