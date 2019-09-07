@@ -118,5 +118,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 画像保存用
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# 決済処理用(Stripe)
+STRIPE_PUBLIC_KEY = 'pk_test_ySAZdS8Y93jI4GLvQQcrE0DF00dfQtSjba'
+STRIPE_SECRET_KEY = 'sk_test_kvw7U66aJZzSOtsXBj88JVSH008Sa34Cxv'

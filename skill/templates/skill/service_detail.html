@@ -13,12 +13,32 @@
         <p>P{{ service.price }}</p>
         <p>{{ service.author }}</p>
     </div>
+
     <div>
         <a href='{% url "skill:index" %}' class="btn btn-primary">List of Services</a>
+
         <!-- ログインIDと作成者のIDが一致している場合のみ編集と削除のリンクを表示 -->
         {% if request.user.id == object.author_id %}
             <a href='{% url "skill:update" service.pk %}' class="btn btn-primary mx-1">Edit</a>
             <a href='{% url "skill:delete" service.pk %}' class="btn btn-danger">Delete</a>
+        {% endif %}
+
+        <!-- 購入ボタン・フォームの作成 -->
+        {% if user.is_authenticated and request.user.id != object.author_id %}
+            <form action="" method="POST" class="py-2">
+                <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="{{ publick_key }}"
+                    data-amount="{{ service.price }}"
+                    data-name="Tanki"
+                    data-description="{{ service.content }}"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-currency="pula"
+                    data-email="{{ user.email }}">
+                </script>
+                {% csrf_token %}
+            </form>
         {% endif %}
     </div>
 {% endblock %}
