@@ -30,8 +30,10 @@ class Service(models.Model):       # Serviceモデルの定義
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.content
+    # def __str__(self):
+    #     return self.content
+    def get_absolute_url(self):
+        return reverse('skill:detail', kwargs={'pk': self.pk})
 
 class BuyingHistory(models.Model):
     """購入履歴"""
