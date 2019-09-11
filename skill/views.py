@@ -29,7 +29,7 @@ class DetailView(generic.DetailView):
                 amount=service.price,       # 値段
                 currency='bwp',            # ボツワナPula
                 source=token,
-                description='メール:{} サービス内容:{}'.format(request.user.email, service.content),
+                description='Mail:{} Service Content:{}'.format(request.user.email, service.content),
             )
         except stripe.error.CardError as e:
             # カード決済が上手く行かなかった(限度額超えとか)ので、メッセージと一緒に再度ページ表示
