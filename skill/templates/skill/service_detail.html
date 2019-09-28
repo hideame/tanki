@@ -10,8 +10,16 @@
         {% else %}
             <p>No image</p>
         {% endif %}
-        <p>P{{ service.price }}</p>
-        <p>{{ service.author }}</p>
+        <div class="d-inline">P{{ service.price }}</div>
+        <!-- <form class="d-inline mx-3" action="{% url 'skill:favorite' service.pk %}" method="post">
+            {% if is_favorite %}
+                <button type="submit" name="button" class="fas fa-heart fa-lg my-red btn"></button>
+            {% else %}
+                <button type="submit" name="button" class="fas fa-heart fa-lg btn"></button>
+            {% endif %}
+            {% csrf_token %}
+        </form> -->
+        <div class="mb-3">{{ service.author }}</div>
     </div>
 
     <div>

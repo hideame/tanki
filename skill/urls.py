@@ -2,8 +2,9 @@ from django.urls import path
 from . import views
  
 app_name = 'skill'
- 
+
 urlpatterns = [
+    path('<int:pk>/favorite/', views.favorite, name='favorite'),
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('create/', views.CreateView.as_view(), name='create'),

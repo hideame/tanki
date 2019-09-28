@@ -1,6 +1,10 @@
 from django.urls import reverse_lazy
 from django.views import generic    # クラスベース汎用ビューを使用
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .models import Category, Service, BuyingHistory
+#from .models import Category, Service, BuyingHistory, Favorite
 
 # ログイン時のみ利用したいクラスを継承
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +12,7 @@ from django.core.exceptions import PermissionDenied         # 追加
 
 # 決済処理用
 from django.conf import settings
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -77,3 +81,31 @@ class DeleteView(LoginRequiredMixin, generic.edit.DeleteView):
     model = Service
     # reverse_lazy関数は、viewの名前からリダイレクト先のURLを取得
     success_url = reverse_lazy('skill:index')
+
+@login_required
+def favorite(request, *args, **kwargs):
+    service = Service.objects.get(id=kwargs['pk'])
+    is_favorite = request.user.favorite_services.filter(id=service.id).exists()
+    #is_favorite = Favorite.objects.filter(author=request.user).filter(service=service).count()
+    # unfavorite
+    if is_favorite:
+        # favoriting = Service.favorited_user.objects.get(service__id=kwargs['pk'], author=request.user)
+        # favoriting = Favorite.objects.get(service__id=kwargs['pk'], author=request.user)
+        # favoriting.delete()
+        # service.favorite_num -= 1
+        service.favorited_user.remove(request.user)
+        # service.save()
+        messages.warning(request, 'Removed favorite')
+        return redirect(reverse_lazy('skill:detail', kwargs={'pk': kwargs['pk']}))
+        # return redirect(reverse_lazy('skill:detail', kwargs={'pk': kwargs['pk']}, is_favorite='is_favorite'))
+    # favorite
+    # service.favorite_num += 1
+    # service.save()
+    service.favorited_user.add(request.user)
+    # favorite = Favorite()
+    # favorite.author = request.user
+    # favorite.service = service
+    # favorite.save()
+    messages.success(request, 'Favorited')
+    return HttpResponseRedirect(reverse_lazy('skill:detail', kwargs={'pk': kwargs['pk']}))
+    # return HttpResponseRedirect(reverse_lazy('skill:detail', kwargs={'pk': kwargs['pk']}, is_favorite='is_favorite'))
