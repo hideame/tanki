@@ -1,12 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h1>{{ service.content }}</h1>
+    <h1 class="py-4">{{ service.content }}</h1>
 
     <div>
         <p>{{ service.category.name }}</p>
         <p>{{ service.content }}</p>
         {% if service.image %}
-            <p><img src="{{ service.image.url }}"></p>
+            <p><img src="{{ service.image.medium.url }}"></p>
         {% else %}
             <p>No image</p>
         {% endif %}

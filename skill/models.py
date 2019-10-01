@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
-from django.conf import settings    # 決済処理用
+from stdimage.models import StdImageField   # 画像リサイズ
+from django.conf import settings            # 決済処理用
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Category(models.Model):       # Categoryモデルの定義
     name = models.CharField(max_length=50)
@@ -15,13 +17,22 @@ class Category(models.Model):       # Categoryモデルの定義
 class Service(models.Model):       # Serviceモデルの定義
     content = models.CharField(max_length=255)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    price = models.IntegerField(default=10)
-    image = models.ImageField(upload_to='photo', null=True)    # 画像カラム追加
+    price = models.DecimalField(
+        default=50.00, 
+        max_digits=7, 
+        decimal_places=2, 
+        validators=[MinValueValidator(50.00), MaxValueValidator(99999.00)],
+        )
+    image = StdImageField(upload_to='photo', blank=True, variations={     # 画像カラム追加
+        'thumbnail': (100, 100, True),
+        'medium': (300, 200),
+        'large': (600, 400),
+        })
     # CategoryモデルとShopモデルの関連付け
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # favorite_num = models.IntegerField(default=0)
+    # favorite_num = models.DecimalField(default=0)
 
     favorited_user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='favorite_services')
 

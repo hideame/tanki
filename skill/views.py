@@ -20,6 +20,9 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class IndexView(generic.ListView):  # モデルで取り出したデータで一覧ページを作成
     model = Service
 
+    def get_queryset(self):         # 作成順にソート
+        return super().get_queryset().order_by('-created_at')
+
 class DetailView(generic.DetailView):
     model = Service
 
