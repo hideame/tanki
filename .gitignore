@@ -3,3 +3,5 @@ __pycache__/
 /media/photo/
 /accounts/__pycache__/
 /tanki/settings.py
+/skill/static/admin/
+/skill/static/django_extensions/
