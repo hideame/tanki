@@ -17,11 +17,13 @@ class Category(models.Model):       # Categoryモデルの定義
 class Service(models.Model):       # Serviceモデルの定義
     content = models.CharField(max_length=255)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    price = models.DecimalField(
-        default=50.00, 
-        max_digits=7, 
-        decimal_places=2, 
-        validators=[MinValueValidator(50.00), MaxValueValidator(99999.00)],
+    #price = models.DecimalField(
+    price = models.IntegerField(
+        default=5000,               # Price in thebe
+        # default=50.00, 
+        # max_digits=7, 
+        # decimal_places=2, 
+        validators=[MinValueValidator(5000), MaxValueValidator(10000000)],
         )
     image = StdImageField(upload_to='photo', blank=True, variations={     # 画像カラム追加
         'thumbnail': (100, 100, True),
